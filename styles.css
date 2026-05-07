@@ -1,0 +1,139 @@
+:root{
+    --bg:#050816;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    background:var(--bg);
+}
+
+/* ================= RGB ================= */
+
+.bg-blur{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:0;
+    pointer-events:none;
+}
+
+.blur{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:.65;
+    will-change:transform;
+    animation:move 10s ease-in-out infinite alternate;
+}
+
+.blur1{
+
+    width:500px;
+    height:500px;
+
+    background:#ff0080;
+
+    top:-200px;
+    left:-200px;
+}
+
+.blur2{
+
+    width:450px;
+    height:450px;
+
+    background:#7928ff;
+
+    right:-180px;
+    bottom:-180px;
+
+    animation-delay:2s;
+}
+
+.blur3{
+
+    width:400px;
+    height:400px;
+
+    background:#00d4ff;
+
+    top:50%;
+    left:-200px;
+
+    animation-delay:4s;
+}
+
+@keyframes move{
+
+    from{
+
+        transform:
+        translate(0,0)
+        scale(1);
+    }
+
+    to{
+
+        transform:
+        translate(180px,-120px)
+        scale(1.25);
+    }
+}
+
+/* ================= CANVAS ================= */
+
+canvas{
+    display:block;
+    position:relative;
+    z-index:2;
+}
+
+/* ================= BUTTON ================= */
+
+.play-btn{
+
+    position:absolute;
+    z-index:3;
+
+    top:50%;
+    left:50%;
+
+    transform:
+    translate(-50%,-50%);
+
+    width:110px;
+    height:110px;
+
+    border:none;
+    border-radius:50%;
+
+    background:
+    rgba(255,255,255,.08);
+
+    backdrop-filter:blur(10px);
+
+    color:#fff;
+
+    font-size:38px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    box-shadow:
+    0 0 15px rgba(255,255,255,.15),
+    0 0 50px rgba(255,0,120,.3);
+}
+
+.play-btn:hover{
+
+    transform:
+    translate(-50%,-50%)
+    scale(1.05);
+}
