@@ -11,6 +11,7 @@
 body{
     overflow:hidden;
     background:var(--bg);
+    touch-action:none;
 }
 
 /* ================= RGB ================= */
@@ -129,6 +130,9 @@ canvas{
     box-shadow:
     0 0 15px rgba(255,255,255,.15),
     0 0 50px rgba(255,0,120,.3);
+
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .play-btn:hover{

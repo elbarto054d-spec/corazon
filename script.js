@@ -23,7 +23,7 @@ const particles = [];
 
 let started = false;
 
-/* ================= MOUSE ================= */
+/* ================= MOUSE + TOUCH ================= */
 
 const mouse = {
 
@@ -32,10 +32,52 @@ const mouse = {
     radius:130
 };
 
+function updatePointer(x,y){
+
+    mouse.x = x;
+    mouse.y = y;
+}
+
+/* PC */
+
 addEventListener("mousemove",e=>{
 
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+    updatePointer(
+        e.clientX,
+        e.clientY
+    );
+});
+
+/* CELULAR */
+
+addEventListener("touchmove",e=>{
+
+    const touch =
+    e.touches[0];
+
+    updatePointer(
+        touch.clientX,
+        touch.clientY
+    );
+
+},{ passive:true });
+
+addEventListener("touchstart",e=>{
+
+    const touch =
+    e.touches[0];
+
+    updatePointer(
+        touch.clientX,
+        touch.clientY
+    );
+
+},{ passive:true });
+
+addEventListener("touchend",()=>{
+
+    mouse.x = -9999;
+    mouse.y = -9999;
 });
 
 /* ================= PARTICLE ================= */
@@ -233,8 +275,11 @@ function createText(){
     tctx.textAlign =
     "center";
 
+    const fontSize =
+    Math.min(w * 0.08, 56);
+
     tctx.font =
-    "bold 56px Arial";
+    `bold ${fontSize}px Arial`;
 
     tctx.fillText(
         "Sería un gusto",
