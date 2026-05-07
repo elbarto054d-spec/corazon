@@ -23,7 +23,7 @@ const particles = [];
 
 let started = false;
 
-/* ================= MOUSE + TOUCH ================= */
+/* ================= TOUCH + MOUSE ================= */
 
 const mouse = {
 
@@ -38,9 +38,11 @@ function updatePointer(x,y){
     mouse.y = y;
 }
 
-/* PC */
+/* MOUSE */
 
-addEventListener("mousemove",e=>{
+window.addEventListener(
+"mousemove",
+e=>{
 
     updatePointer(
         e.clientX,
@@ -48,21 +50,11 @@ addEventListener("mousemove",e=>{
     );
 });
 
-/* CELULAR */
+/* TOUCH */
 
-addEventListener("touchmove",e=>{
-
-    const touch =
-    e.touches[0];
-
-    updatePointer(
-        touch.clientX,
-        touch.clientY
-    );
-
-},{ passive:true });
-
-addEventListener("touchstart",e=>{
+window.addEventListener(
+"touchstart",
+e=>{
 
     const touch =
     e.touches[0];
@@ -72,9 +64,29 @@ addEventListener("touchstart",e=>{
         touch.clientY
     );
 
-},{ passive:true });
+},
+{ passive:false });
 
-addEventListener("touchend",()=>{
+window.addEventListener(
+"touchmove",
+e=>{
+
+    e.preventDefault();
+
+    const touch =
+    e.touches[0];
+
+    updatePointer(
+        touch.clientX,
+        touch.clientY
+    );
+
+},
+{ passive:false });
+
+window.addEventListener(
+"touchend",
+()=>{
 
     mouse.x = -9999;
     mouse.y = -9999;
@@ -100,8 +112,6 @@ class Particle{
 
         this.density =
         Math.random() * 15 + 1;
-
-        /* FIREFLY */
 
         this.phase =
         Math.random()
@@ -371,18 +381,30 @@ createStars();
 
 /* ================= START ================= */
 
-document
-.getElementById("playBtn")
-.addEventListener("click",()=>{
+const playBtn =
+document.getElementById("playBtn");
+
+function startAnimation(){
+
+    if(started) return;
 
     started = true;
 
-    document
-    .getElementById("playBtn")
-    .remove();
+    playBtn.remove();
 
     createHeart();
-});
+}
+
+playBtn.addEventListener(
+"click",
+startAnimation
+);
+
+playBtn.addEventListener(
+"touchstart",
+startAnimation,
+{ passive:true }
+);
 
 /* ================= RESIZE ================= */
 
